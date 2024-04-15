@@ -1,0 +1,84 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <ctime>
+using namespace std;
+
+char generznakspecjalny() {
+    string znakspecjalny = "!@#$%^&*()-_=+[{]}|;:,<.>/?";
+    return znakspecjalny[rand() % znakspecjalny.length()];
+}
+
+char generlitera() {
+    string letera = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return letera[rand() % letera.length()];
+}
+
+char generatcyfr() {
+    string cyfry = "0123456789";
+    return cyfry[rand() % cyfry.length()];
+}
+
+string generhaslo(int length) {
+    string haslo = "";
+    for (int i = 0; i < length; ++i) {
+    int choice = rand() % 3;
+    switch (choice) {
+    case 0:
+    haslo += generznakspecjalny();
+    break;
+    case 1:
+    haslo += generlitera();
+    break;
+    case 2:
+    haslo += generatcyfr();
+    break;
+    }
+    }
+    return haslo;
+}
+
+int main()
+{
+    srand(time(0));
+    int length = rand() % 9 + 10;
+    string haslo = generhaslo(length);
+    cout << "Wygenerowane haslo: " << haslo << endl;
+
+    string pobrane;
+    vector <string> tab;
+    fstream plik;
+
+plik.open("doodczytania.txt",ios_base::in);
+
+    if (plik.good())
+    {
+    cout << "plik dziala" << endl;
+    while(!plik.eof())
+    {
+    plik >> pobrane;
+    tab.push_back(pobrane);
+    cout << pobrane << endl;
+    }
+    }else{
+    cout << "nie good" << endl;
+    }
+
+plik.close();
+
+plik.open("hasla.txt",ios_base::app);
+
+    if (plik.good())
+    {
+    cout << "plik dziala" << endl;
+    //dopisywanie do pliku
+    plik << endl << haslo;
+    }else{
+    cout << "nie good" << endl;
+    }
+
+plik.close();
+
+    cout << tab[0];
+    return 0;
+}
