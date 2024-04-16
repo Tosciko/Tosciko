@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
 char generznakspecjalny() {
@@ -41,44 +42,23 @@ string generhaslo(int length) {
 int main()
 {
     srand(time(0));
-    int length = rand() % 9 + 10;
-    string haslo = generhaslo(length);
-    cout << "Wygenerowane haslo: " << haslo << endl;
-
-    string pobrane;
+    int length =rand() % 9 + 10;
+    int ilosc=100;
+    string haslo;
     vector <string> tab;
-    fstream plik;
-
-plik.open("doodczytania.txt",ios_base::in);
-
-    if (plik.good())
+    ofstream plik;
+    plik.open("doodczytania.txt");
+    for (int i = 0; i < ilosc; i++)
     {
-    cout << "plik dziala" << endl;
-    while(!plik.eof())
-    {
-    plik >> pobrane;
-    tab.push_back(pobrane);
-    cout << pobrane << endl;
-    }
-    }else{
-    cout << "nie good" << endl;
-    }
-
-plik.close();
-
-plik.open("hasla.txt",ios_base::app);
-
-    if (plik.good())
-    {
-    cout << "plik dziala" << endl;
-    //dopisywanie do pliku
-    plik << endl << haslo;
-    }else{
-    cout << "nie good" << endl;
-    }
-
-plik.close();
-
-    cout << tab[0];
+        do {
+          haslo = generhaslo(length);
+        } while (find(tab.begin(), tab.end(), haslo) != tab.end());
+        tab.push_back(haslo);
+        plik << haslo << endl;
+  }
+    plik.close();
+  for (int i = 0; i < ilosc; i++){
+    cout << tab[i] << endl;
+  }
     return 0;
 }
