@@ -1,0 +1,6 @@
+Folder ma zawierać plik tekstowy który ma nazywać się "doodczytania" z rozszeżeniem txt i main.cpp z kodem w środku.
+Proszę włączyć main.cpp w Code::Blocks 20.03
+  Przy włączeniu programu prosze podać ilość haseł do wygenerowania.
+  Kod będzie generował wybraną ilość haseł które składają się z znaków specjalnych z dużych i małych liter oraz cyfr. Gdy hasło będize unikatowe to zostanie przeżucone do pliku "doodczytania".txt
+
+autorzy: Jakub Bryl, Lidka Świtek, Kacper Kąkol
